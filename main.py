@@ -1,15 +1,15 @@
 from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QGridLayout
-from PyQt5.QtGui import QPainter, QPixmap, QPen
+from PyQt5.QtGui import QPainter, QPixmap, QPen, QColor
 from PyQt5.QtCore import Qt
 from PyQt5 import uic
 import random
+from face import Ui_MainWindow
 
 
-class Test(QMainWindow):
+class Test(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
-
+        self.setupUi(self)
         self.pushButton.clicked.connect(self.circle)
         self.label = QLabel()
         canvas = QPixmap(600, 600)
@@ -24,7 +24,7 @@ class Test(QMainWindow):
         painter = QPainter(self.label.pixmap())
         pen = QPen()
         pen.setWidth(10)
-        pen.setColor(Qt.yellow)
+        pen.setColor(QColor(*[random.randint(0, 255) for i in range(3)]))
         painter.setPen(pen)
         painter.drawEllipse(x, x, x + w, x + w)
         painter.end()
